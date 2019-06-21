@@ -18,7 +18,7 @@ class MyToolbarAndroid extends React.Component {
               onPress: () => console.log('Cancel Pressed'),
               style: 'cancel',
             },
-            {text: 'Super top!', onPress: () => console.log('OK Pressed')},
+            {text: 'Super good !', onPress: () => console.log('OK Pressed')},
           ],
           {cancelable: false},
         );
