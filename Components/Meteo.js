@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import {getLocationWeather} from '../API/WeatherAPIKey'
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
@@ -10,8 +10,7 @@ class Meteo extends React.Component {
         super(props)
         this.state = {
             location: null,
-            tempMin: null,
-            tempMax: null, 
+            temp: null, 
             weather: null,
             data: [],
             errorMessage: null,
@@ -58,12 +57,10 @@ class Meteo extends React.Component {
             this.setState({
                 latitude: data.coord.lat,
                 longitude: data.coord.long,
-                tempMin: data.main.temp_min,
-                tempMax: data.main.temp_max,
+                temp: data.main.temp,
                 weather: data.weather[0].main,
                 data: data
             })
-            console.log(data)
         })
     }
 
@@ -87,12 +84,13 @@ class Meteo extends React.Component {
         text = ''
         }
         return(
-            <View style= {styles.main}>
-                <Text style={styles.emoticon}>{this._getWeatherEmoticon()}</Text>  
-                <Text>{text}</Text>
-                <Text>{this.state.data.name}</Text>
-                <Text>Min : {this.state.tempMin} °C</Text>  
-                <Text>Max : {this.state.tempMax} °C</Text>  
+            <View style={styles.weatherContainer}>
+                <View style= {styles.headerContainer}>
+                    <Text style={styles.emoticon}>{this._getWeatherEmoticon()}</Text>  
+                    <Text>{text}</Text>
+                    <Text>{this.state.data.name}</Text>
+                    <Text style={styles.tempText}>{this.state.temp} °C</Text>  
+                </View>
             </View>
         )
     }
@@ -110,6 +108,34 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 50
+    },
+    weatherContainer: {
+        flex: 1,
+        backgroundColor: '#B0E0E6'
+      },
+      headerContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      tempText: {
+        fontSize: 48,
+        color: '#fff'
+      },
+      bodyContainer: {
+        flex: 2,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-end',
+        paddingLeft: 25,
+        marginBottom: 40
+      },
+      title: {
+        fontSize: 48,
+        color: '#fff'
+      },
+      subtitle: {
+        fontSize: 24,
+        color: '#fff'
     }
 
 
